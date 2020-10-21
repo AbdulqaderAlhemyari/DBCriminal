@@ -1,4 +1,4 @@
-package com.example.dbcriminal
+package com.example.dbacriminal
 
 import androidx.lifecycle.ViewModel
 

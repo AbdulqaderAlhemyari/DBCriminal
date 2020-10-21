@@ -1,4 +1,4 @@
-package com.example.dbcriminal
+package com.example.dbacriminal
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
@@ -7,6 +7,7 @@ import java.util.*
 data class Crime(@PrimaryKey val id: UUID = UUID.randomUUID(),
                  var title: String = "",
                  var date: Date = Date(),
+                 var time: String="",
                  var isSolved: Boolean = false )
 //changes due to doing challenge no 11
 {

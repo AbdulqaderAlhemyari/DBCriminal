@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.dbcriminal.Crime
+import com.example.dbacriminal.Crime
 import java.util.*
 
 

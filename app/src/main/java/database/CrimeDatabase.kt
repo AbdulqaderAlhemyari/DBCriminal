@@ -3,9 +3,9 @@ package database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.dbcriminal.Crime
+import com.example.dbacriminal.Crime
 
-@Database(entities = [ Crime::class ], version=1, exportSchema = false)
+@Database(entities = [ Crime::class ], version=2, exportSchema = false)
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDatabase : RoomDatabase() {
 
