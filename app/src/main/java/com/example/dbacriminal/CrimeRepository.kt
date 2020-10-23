@@ -7,7 +7,7 @@ package com.example.dbacriminal
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import database.CrimeDatabase
+import com.example.database.CrimeDatabase
 import java.util.*
 import java.util.concurrent.Executors
 
