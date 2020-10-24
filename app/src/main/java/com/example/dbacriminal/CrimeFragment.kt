@@ -65,13 +65,13 @@ class CrimeFragment: Fragment()  ,DatePickerFragment.Callbacks , TimePickerFragm
         titleField = view.findViewById(R.id.crime_title) as EditText
         dateButton = view.findViewById(R.id.crime_date) as Button
         solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
-        //timeButton = view.findViewById(R.id.crime_Time) as Button
-        /*dateButton.apply {
-            text = crime.date.toString()
-            isEnabled = false
-        }*/
+        timeButton = view.findViewById(R.id.crime_Time) as Button
+//        dateButton.apply {
+//            text = crime.date.toString()
+//            isEnabled = false
+//        }
         return view
-    }
+   }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
