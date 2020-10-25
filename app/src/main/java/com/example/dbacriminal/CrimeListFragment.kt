@@ -4,9 +4,8 @@ package com.example.dbacriminal
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -38,6 +37,8 @@ class CrimeListFragment : Fragment() {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
     }
 
+    private lateinit var emptyButton: Button
+
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Total crimes: ${crimeListViewModel.crimes.size}")
@@ -46,6 +47,11 @@ class CrimeListFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callbacks = context as Callbacks?
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -72,11 +78,39 @@ class CrimeListFragment : Fragment() {
                     updateUI(crimes)
                 }
             })
+        emptyButton = view.findViewById(R.id.new_crime_bu)
+
+        emptyButton.setOnClickListener {
+            val crime = Crime()
+            crimeListViewModel.addCrime(crime)
+            callbacks?.onCrimeSelected(crime.id)
+
+        }
     }
+
 
     override fun onDetach() {
         super.onDetach()
         callbacks = null
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_crime_list, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.new_crime -> {
+                val crime = Crime()
+                crimeListViewModel.addCrime(crime)
+                callbacks?.onCrimeSelected(crime.id)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     //private fun updateUI() {
@@ -88,6 +122,15 @@ class CrimeListFragment : Fragment() {
         val adapterV = crimeRecyclerView.adapter as CrimeAdapter
 
         adapterV.submitList(crimes)
+
+        if(crimes.isEmpty() || adapter == null){
+            emptyButton.visibility = View.VISIBLE
+            Toast.makeText(context,"There are no crimes",Toast.LENGTH_LONG).show()
+
+        }else {
+            emptyButton.visibility = View.GONE
+
+        }
     }
 
     companion object {
@@ -134,7 +177,7 @@ class CrimeListFragment : Fragment() {
         }
 
         override fun getItemCount() = crimes.size
-       //changes due to doing challenge no 11
+        //changes due to doing challenge no 11
         fun submitList(vCrime:List<Crime>)
         {
             val oldList=crimes
@@ -150,18 +193,18 @@ class CrimeListFragment : Fragment() {
 
         //changes due to doing challenge no 11
         inner class CrimeDiffUtilCallBack(var oldCrime: List<Crime>, var newCrime: List<Crime>):
-                DiffUtil.Callback()
+            DiffUtil.Callback()
         {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                        return (oldCrime.get(oldItemPosition).id == newCrime.get(newItemPosition).id)
+                return (oldCrime.get(oldItemPosition).id == newCrime.get(newItemPosition).id)
             }
 
             override fun getOldListSize(): Int {
-                    return oldCrime.size
+                return oldCrime.size
             }
 
             override fun getNewListSize(): Int {
-                    return newCrime.size
+                return newCrime.size
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean
