@@ -41,5 +41,10 @@ data class Crime(@PrimaryKey val id: UUID = UUID.randomUUID(),
         return true
     }
 
+
+        val photoFileName
+        get() = "IMG_$id.jpg"
+
+
 }
 
