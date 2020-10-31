@@ -246,7 +246,7 @@ class CrimeFragment: Fragment()  ,DatePickerFragment.Callbacks , TimePickerFragm
 
     private fun updateUI() {
         titleField.setText(crime.title)
-        dateButton.text = crime.date.toString()
+        dateButton.text = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL).format(this.crime.date).toString()
         timeButton.text = SimpleDateFormat("HH:mm").format(crime.date).toString()
         solvedCheckBox.apply {
             isChecked = crime.isSolved
